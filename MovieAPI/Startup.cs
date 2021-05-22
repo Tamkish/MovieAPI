@@ -33,6 +33,17 @@ namespace MovieAPI
 				options.UseSqlServer(connectionString)
 			);
 
+			services.AddCors(options =>
+			{
+				// this defines a CORS policy called "default"
+				options.AddPolicy("default", policy =>
+				{
+					policy.AllowAnyOrigin()
+					.AllowAnyHeader()
+					.AllowAnyMethod();
+				});
+			});
+
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
@@ -53,6 +64,9 @@ namespace MovieAPI
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
+
+			app.UseCors("default"); 
+
 
 			app.UseAuthorization();
 

@@ -41,7 +41,7 @@ namespace MovieAPI.Controllers
 			IQueryable<Director> directors = _context.Directors;
 			if (!String.IsNullOrEmpty(name))
 				directors = directors.Where(d => d.FirstName.Contains(name) || d.LastName.Contains(name));
-
+			if (order == null) order = "lastname";
 			directors = order.ToLower() switch
 			{
 				"firstname_desc" => directors.OrderByDescending(d => d.FirstName),
